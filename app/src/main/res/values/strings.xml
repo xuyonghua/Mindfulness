@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">又见</string>
+
+    <string name="text_month">JUL</string>
+    <string name="text_year">2019</string>
+    <string name="text_day">26</string>
+    <string name="text_word">那些感受大地之美的人，能从中获得生命的力量，直至一生。</string>
+    <string name="text_author">蕾切尔·卡逊</string>
+
+
+    <string name="course_title">张满的正念课</string>
+    <string name="course_name">三步呼吸空间回应版</string>
+    <string name="course_all">全部课程</string>
+
 </resources>

@@ -54,3 +54,5 @@ object Api {
         retrofit.create(ApiService::class.java)
     }
 }
+
+enum class ApiStatus { LOADING, ERROR, DONE }
