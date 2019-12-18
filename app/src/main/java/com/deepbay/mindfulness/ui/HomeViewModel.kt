@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.deepbay.mindfulness.database.AppDatabase.Companion.getDatabase
+import com.deepbay.mindfulness.domain.Music
 import com.deepbay.mindfulness.network.Api
 import com.deepbay.mindfulness.repository.AppRepository
 import kotlinx.coroutines.*
@@ -26,7 +27,8 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     val response: LiveData<String>
         get() = _response
 
-    val musics = appRepository.getMusicsFromDb()
+//    val musics = appRepository.getMusicsFromDb()
+    val musics = listOf(Music(1,"test","",100))
 
     private fun get() {
         uiScope.launch {

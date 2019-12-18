@@ -9,11 +9,18 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
-class MindfulnessApplication : Application() {
+class App : Application() {
+    companion object {
+        private var instance: Application? = null
+        fun getApp() = instance!!
+    }
+
     private val applicationScope = CoroutineScope(Dispatchers.Default)
+
     override fun onCreate() {
         super.onCreate()
         delayedInit()
+        instance = this
     }
 
     private fun delayedInit() {

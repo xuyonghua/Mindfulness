@@ -1,11 +1,15 @@
 package com.deepbay.mindfulness.ui
 
+import android.content.res.Resources
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.deepbay.mindfulness.R
 import com.deepbay.mindfulness.databinding.ActivityMainBinding
-import com.deepbay.mindfulness.util.ScreenUtils
+import com.deepbay.mindfulness.util.adaptHeight
+import com.deepbay.mindfulness.util.adaptWidth
+import com.deepbay.mindfulness.util.isPortrait
 import com.deepbay.mindfulness.util.setTransparent
 
 class MainActivity : AppCompatActivity() {
@@ -25,14 +29,14 @@ class MainActivity : AppCompatActivity() {
                 this,
                 R.layout.activity_main
             )
-
-        if (ScreenUtils.isPortrait(this)) {
-            ScreenUtils.adaptScreen4VerticalSlide(this, 750)
-        } else {
-            ScreenUtils.adaptScreen4HorizontalSlide(this, 750)
-        }
         setSupportActionBar(binding.toolbar)
         supportActionBar!!.setDisplayShowTitleEnabled(false)
+        Toast.makeText(this, "show toast", Toast.LENGTH_LONG).show()
+    }
 
+    override fun getResources(): Resources = if (isPortrait()) {
+        adaptWidth(super.getResources(), 750)
+    } else {
+        adaptHeight(super.getResources(), 1334)
     }
 }
