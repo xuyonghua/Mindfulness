@@ -178,7 +178,7 @@
 
         <com.deepbay.mindfulness.widget.bannerview.BannerView
             android:id="@+id/banner"
-            android:layout_width="616pt"
+            android:layout_width="match_parent"
             android:layout_height="616pt"
             android:layout_marginTop="104pt"
             app:layout_constraintEnd_toEndOf="parent"
