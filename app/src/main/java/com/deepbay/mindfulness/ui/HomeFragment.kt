@@ -18,6 +18,7 @@ import com.deepbay.mindfulness.databinding.HomeFragmentBinding
 import com.deepbay.mindfulness.widget.bannerview.BannerSetting
 import com.deepbay.mindfulness.widget.bannerview.ScaleBannerLayoutManager
 
+
 class HomeFragment : Fragment() {
 
     private lateinit var viewModel: HomeViewModel
@@ -68,6 +69,7 @@ class HomeFragment : Fragment() {
 //            }
 //        })
         binding.banner.layoutManager = ScaleBannerLayoutManager()
+
         binding.banner.setUp(BannerSetting().apply {
             slideTimeGap = 3000
             autoSlideSpeed = 1000
@@ -75,7 +77,7 @@ class HomeFragment : Fragment() {
             canAutoSlide = true
         }, Adapter())
 
-
+        //todo 通过https://blog.csdn.net/u012854870/article/details/84984066 实现监听
 
         return binding.root
     }
