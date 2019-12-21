@@ -17,31 +17,43 @@
 
 package com.deepbay.mindfulness.util
 
+import android.content.Context
+import android.util.DisplayMetrics
 import android.view.View
+import android.view.WindowManager
 import android.widget.ImageView
-import androidx.core.net.toUri
+import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.deepbay.mindfulness.R
+import com.deepbay.mindfulness.domain.Album
 import com.deepbay.mindfulness.network.ApiStatus
+import java.text.SimpleDateFormat
+import java.util.*
 import android.graphics.drawable.GradientDrawable as GradientDrawable1
 
-@BindingAdapter("imageUrl")
-fun bindImage(imgView: ImageView, imgUrl: String?) {
-    imgUrl?.let {
-        val imgUri =
-            imgUrl.toUri().buildUpon().scheme("https").build()
-        Glide.with(imgView.context)
-            .load(imgUri)
+@BindingAdapter("albumImage")
+fun ImageView.setAlbumImage(item: Album) {
+    item?.let {
+        Glide.with(context)
+            .load(item.albumImage)
             .apply(
                 RequestOptions()
                     .placeholder(R.drawable.loading_animation)
                     .error(R.drawable.ic_broken_image)
             )
-            .into(imgView)
+            .into(this)
     }
 }
+
+@BindingAdapter("layoutParams")
+fun CardView.setLayoutParams(scala: Float) {
+    this.layoutParams.width =
+        (getDisplayMetrics(context!!).widthPixels.times(scala)).toInt()
+}
+
 
 @BindingAdapter("apiStatus")
 fun bindStatus(
@@ -65,10 +77,26 @@ fun bindStatus(
     }
 }
 
-@BindingAdapter("drawable_solidColor", "drawable_radius", requireAll = false)
-fun bindBackground(v: View, color: Int, radius: Int) {
-    val drawable = GradientDrawable1()
-    drawable.setColor(color)
-    drawable.cornerRadius = radius.toFloat()
-    v.background = drawable
+//@BindingAdapter("day")
+//fun TextView.setDay() {
+//    val calendar = Calendar.getInstance()
+//    text = calendar.get(Calendar.DAY_OF_MONTH).toString()
+//}
+//
+//@BindingAdapter("year")
+//fun TextView.setYear() {
+//    val calendar = Calendar.getInstance()
+//    text = calendar.get(Calendar.YEAR).toString()
+//}
+//
+//@BindingAdapter("month")
+//fun TextView.setMonth() {
+//    text = SimpleDateFormat("MMM", Locale.getDefault()).format(Date())
+//}
+
+fun getDisplayMetrics(context: Context): DisplayMetrics {
+    val windowManager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+    val metrics = DisplayMetrics()
+    windowManager.defaultDisplay.getMetrics(metrics)
+    return metrics
 }

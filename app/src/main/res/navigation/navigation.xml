@@ -1,11 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
     app:startDestination="@id/homeFragment">
 
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.deepbay.mindfulness.ui.HomeFragment"
-        android:label="HomeFragment" />
+        android:label="HomeFragment" >
+        <action
+            android:id="@+id/action_homeFragment_to_musicListFragment"
+            app:destination="@id/musicListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/musicListFragment"
+        android:name="com.deepbay.mindfulness.ui.MusicListFragment"
+        android:label="music_list_fragment"
+        tools:layout="@layout/music_list_fragment" />
 </navigation>

@@ -3,11 +3,11 @@ package com.deepbay.mindfulness.widget.bannerview
 import android.content.Context
 import android.os.Handler
 import android.os.Message
-import androidx.recyclerview.widget.RecyclerView
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.widget.FrameLayout
+import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE
 import com.deepbay.mindfulness.R
 import kotlinx.android.synthetic.main.view_banner_view.view.*
@@ -26,6 +26,7 @@ open class BannerView : FrameLayout {
     constructor(context: Context, attributeSet: AttributeSet?) : super(context, attributeSet) {
         init()
     }
+
     private var timerHandler: TimerHandler? = null
 
     class TimerHandler(view: BannerView) : Handler() {
@@ -43,7 +44,10 @@ open class BannerView : FrameLayout {
                     START_SCROLL -> {
                         var curPos = view.layoutManager.getCurrentPosition()
                         view.banner_recycler_view.smoothScrollToPosition(++curPos)
-                        sendEmptyMessageDelayed(START_SCROLL, view.layoutManager.smoothScrollTime.toLong() + view.setting.slideTimeGap)
+                        sendEmptyMessageDelayed(
+                            START_SCROLL,
+                            view.layoutManager.smoothScrollTime.toLong() + view.setting.slideTimeGap
+                        )
                     }
                 }
             }
@@ -63,6 +67,7 @@ open class BannerView : FrameLayout {
                 super.onScrollStateChanged(recyclerView, newState)
                 if (newState == SCROLL_STATE_IDLE) {
                     indicator?.onViewSelected(layoutManager.getCurrentPosition())
+                    pageListener?.onPageSelected(layoutManager.getCurrentPosition())
                 }
             }
         })
@@ -132,6 +137,12 @@ open class BannerView : FrameLayout {
             startAutoSlide()
         }
 
+    }
+
+    var pageListener: PageChangeListener? = null
+
+    class PageChangeListener(val pageListener: (position: Int) -> Unit) {
+        fun onPageSelected(position: Int) = pageListener(position)
     }
 
 }

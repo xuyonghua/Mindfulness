@@ -1,17 +1,14 @@
 package com.deepbay.mindfulness.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
-import com.deepbay.mindfulness.R
-import com.deepbay.mindfulness.domain.Music
+import com.deepbay.mindfulness.databinding.ViewBannerItemViewBinding
+import com.deepbay.mindfulness.domain.Album
 
-class BannerAdapter() : RecyclerView.Adapter<BannerAdapter.ViewHolder>() {
-    var data = listOf<String>()
+class BannerAdapter(private val clickListener: BannerListener) :
+    RecyclerView.Adapter<BannerAdapter.ViewHolder>() {
+    var data = listOf<Album>()
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -25,31 +22,28 @@ class BannerAdapter() : RecyclerView.Adapter<BannerAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = data[position]
-        holder.bind(item)
+        holder.bind(item, clickListener)
     }
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val image: ImageView = itemView.findViewById(R.id.banner_image)
-
-        fun bind(item: String) {
-            Glide.with(itemView.context)
-                .load(item)
-                .apply(
-                    RequestOptions()
-                        .placeholder(R.drawable.loading_animation)
-                        .error(R.drawable.ic_broken_image)
-                )
-                .into(image)
+    class ViewHolder private constructor(private val binding: ViewBannerItemViewBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(item: Album, clickListener: BannerListener) {
+            binding.album = item
+            binding.clickListener = clickListener
+            binding.executePendingBindings()
         }
 
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val view = layoutInflater
-                    .inflate(R.layout.view_banner_item_view, parent, false)
-
-                return ViewHolder(view)
+                val binding = ViewBannerItemViewBinding.inflate(layoutInflater, parent, false)
+                return ViewHolder(binding)
             }
         }
     }
+}
+
+
+class BannerListener(val clickListener: (albumId: Long) -> Unit) {
+    fun onClick(album: Album) = clickListener(album.id)
 }

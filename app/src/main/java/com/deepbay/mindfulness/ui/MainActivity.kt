@@ -1,6 +1,8 @@
 package com.deepbay.mindfulness.ui
 
 import android.content.res.Resources
+import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -17,13 +19,13 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTransparent(this)
-//        val drawable = GradientDrawable(
-//            GradientDrawable.Orientation.TOP_BOTTOM, intArrayOf(
-//                Color.parseColor("#E9DFDD"),
-//                Color.parseColor("#C18C84")
-//            )
-//        )
-//        window.setBackgroundDrawable(drawable)
+        val drawable = GradientDrawable(
+            GradientDrawable.Orientation.TOP_BOTTOM, intArrayOf(
+                Color.parseColor("#E9DFDD"),
+                Color.parseColor("#C18C84")
+            )
+        )
+        window.setBackgroundDrawable(drawable)
         val binding =
             DataBindingUtil.setContentView<ActivityMainBinding>(
                 this,
@@ -35,8 +37,18 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun getResources(): Resources = if (isPortrait()) {
-        adaptWidth(super.getResources(), 750)
+        adaptWidth(super.getResources(), 375)
     } else {
-        adaptHeight(super.getResources(), 1334)
+        adaptHeight(super.getResources(), 667)
+    }
+
+    fun setBackground(startColor: String, endColor: String) {
+        val drawable = GradientDrawable(
+            GradientDrawable.Orientation.TOP_BOTTOM, intArrayOf(
+                Color.parseColor(startColor),
+                Color.parseColor(endColor)
+            )
+        )
+        window.setBackgroundDrawable(drawable)
     }
 }
