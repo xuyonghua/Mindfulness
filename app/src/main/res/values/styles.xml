@@ -8,9 +8,11 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="SplashTheme" parent="AppTheme">
+    <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowBackground">@drawable/splash</item>
-        <item name="android:windowFullscreen">true</item>
+        <item name="colorPrimaryDark">@color/textColorPrimary</item>
+<!--        <item name="android:statusBarColor">@android:color/transparent</item>-->
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 
     <!--透明状态栏的样式-->
