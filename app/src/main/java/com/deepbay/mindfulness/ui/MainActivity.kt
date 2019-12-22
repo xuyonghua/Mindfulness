@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
             )
         setSupportActionBar(binding.toolbar)
         supportActionBar!!.setDisplayShowTitleEnabled(false)
-        Toast.makeText(this, "show toast", Toast.LENGTH_LONG).show()
+//        Toast.makeText(this, "show toast", Toast.LENGTH_LONG).show()
     }
 
     override fun getResources(): Resources = if (isPortrait()) {

@@ -118,9 +118,11 @@ class HomeFragment : Fragment() {
         viewModel.onAlbumChanged(albums[0])
 
         binding.banner.pageListener = BannerView.PageChangeListener { position ->
-            val album = albums[position]
-            (activity as MainActivity).setBackground(album.startColor, album.endColor)
-            viewModel.onAlbumChanged(album)
+            if (position >= 0 && position < albums.size) {
+                val album = albums[position]
+                (activity as MainActivity).setBackground(album.startColor, album.endColor)
+                viewModel.onAlbumChanged(album)
+            }
         }
 
         viewModel.navigateToAlbumDetail.observe(this, Observer { album ->
